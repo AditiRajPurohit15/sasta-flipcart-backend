@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const cors = require("cors");
 const cookieParser = require('cookie-parser')
 const cacheInstance = require('./src/services/cache.service')
 
@@ -27,6 +28,10 @@ cacheInstance.on("error",(error)=>{
 // app.use(express.json());
 // app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(cors({
+    origin: ["http://localhost:5173", "http://localhost:5174"], 
+    credentials: true
+}));
 
 app.use('/api/auth',express.json(), express.urlencoded({ extended: true }), authRoutes)
 app.use('/api/products', productRoutes)
