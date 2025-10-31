@@ -7,6 +7,7 @@ const cacheInstance = require('./src/services/cache.service')
 const authRoutes = require('./src/routes/auth.routes');
 const productRoutes = require('./src/routes/product.routes');
 const adminRoutes = require('./src/routes/admin.routes')
+const cartRoutes = require("./src/routes/cart.routes")
 const connectDB = require('./src/config/db');
 const path = require("path")
 
@@ -36,6 +37,7 @@ app.use(cors({
 app.use('/api/auth',express.json(), express.urlencoded({ extended: true }), authRoutes)
 app.use('/api/products', productRoutes)
 app.use('/api/admin',express.json(), express.urlencoded({ extended: true }), adminRoutes)
+app.use('/api/cart',express.json(), express.urlencoded({ extended: true }), cartRoutes)
 
 
 
