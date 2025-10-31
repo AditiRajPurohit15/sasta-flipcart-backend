@@ -143,11 +143,25 @@ const getProductByIdController = async(req,res)=>{
     }
 }
 
+const getMyProductsController = async(req,res)=>{
+    try {
+        const myProducts = await productModel.find({seller: req.user._id})
+        if(myProducts.length === 0) return res.status(404).json({message: "No products found for this seller"})
+        return res.status(200).json({message: "Products fetched", products: myProducts})
+    } catch (error) {
+        res.status(500).json({ message: "Internal server error", error: error.message });
+    }
+}
+
+
+
 module.exports ={
     createProductController,
     getAllProductsController,
     updateProductController,
     deleteProductController,
     getProductByIdController,
+    getMyProductsController,
+    
 }
 

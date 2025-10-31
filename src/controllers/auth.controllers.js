@@ -73,7 +73,12 @@ const loginController = async(req, res)=>{
     }
 
     let token = user.generateToken()
-    res.cookie("token", token);
+    res.cookie("token", token, {
+      httpOnly: true,       // prevents JS access
+      secure: false,        // set true only in HTTPS (production)
+      sameSite: "lax",      // prevents cross-site issues
+      path: "/",            // ensure cookie is available to all routes
+    })
 
     return res.status(200).json({
         message: "user logedin successfully"
